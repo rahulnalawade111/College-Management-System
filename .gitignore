@@ -1,0 +1,29 @@
+# Backend
+backend/target/
+backend/.env
+*.class
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+
+# Toolchain (portable JDK/Maven on persistent volume)
+toolchain/
+
+# Uploads
+uploads/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.log
+S
+.idea/
+.vscode/
+.DS_Store
+*.log
+
+# Local-only platform artifacts (contains demo creds — do not commit)
+.drytis/cred.json
+.drytis/memory/
