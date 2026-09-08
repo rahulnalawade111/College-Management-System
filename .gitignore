@@ -25,5 +25,4 @@ S
 *.log
 
 # Local-only platform artifacts (contains demo creds — do not commit)
-.drytis/cred.json
-.drytis/memory/
+.drytis/

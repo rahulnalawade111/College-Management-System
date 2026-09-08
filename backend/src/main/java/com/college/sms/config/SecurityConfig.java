@@ -66,10 +66,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/public/**").permitAll()
                         // role-based rules
                         .requestMatchers("/api/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
-                        .requestMatchers("/api/faculty/**").hasRole("FACULTY")
                         .requestMatchers("/api/student/**").hasRole("STUDENT")
                         .requestMatchers("/api/parent/**").hasRole("PARENT")
-                        // everything else requires authentication
+                        // everything else requires authentication; fine-grained roles via @PreAuthorize
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

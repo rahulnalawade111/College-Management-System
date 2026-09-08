@@ -15,6 +15,9 @@ public class UserPrincipal implements UserDetails {
     private final String password;
     private final boolean enabled;
     private final String role;
+    private final Long studentId;
+    private final Long facultyId;
+    private final Long parentId;
 
     public UserPrincipal(User user) {
         this.id = user.getId();
@@ -22,6 +25,21 @@ public class UserPrincipal implements UserDetails {
         this.password = user.getPassword();
         this.enabled = user.isEnabled();
         this.role = user.getRole().name();
+        this.studentId = user.getStudentId();
+        this.facultyId = user.getFacultyId();
+        this.parentId = user.getParentId();
+    }
+
+    public Long getStudentId() {
+        return studentId;
+    }
+
+    public Long getFacultyId() {
+        return facultyId;
+    }
+
+    public Long getParentId() {
+        return parentId;
     }
 
     public Long getId() {

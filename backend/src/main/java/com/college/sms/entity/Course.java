@@ -4,10 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -17,52 +19,53 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
-@Table(name = "users", indexes = {
-        @Index(name = "uk_users_username", columnList = "username", unique = true),
-        @Index(name = "uk_users_email", columnList = "email", unique = true)
-})
+@Table(name = "courses")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
-    private String username;
+    @Column(name = "course_code", nullable = false, length = 20)
+    private String courseCode;
 
-    @Column(nullable = false, length = 120)
-    private String email;
+    @Column(name = "course_name", nullable = false, length = 120)
+    private String courseName;
 
-    @Column(nullable = false)
-    private String password;
+    @Column(length = 500)
+    private String description;
+
+    @Column(nullable = false, length = 20)
+    private String duration;
+
+    @Column(name = "degree_type", nullable = false, length = 30)
+    private String degreeType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+
+    @Column(name = "total_semesters", nullable = false)
+    @Builder.Default
+    private Integer totalSemesters = 6;
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    @Builder.Default
+    private BigDecimal fees = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private Role role;
-
-    /** Link to the students row when this login belongs to a student. */
-    @Column(name = "student_id")
-    private Long studentId;
-
-    /** Link to the faculty row when this login belongs to a faculty member. */
-    @Column(name = "faculty_id")
-    private Long facultyId;
-
-    /** Link to the parents row when this login belongs to a parent/guardian. */
-    @Column(name = "parent_id")
-    private Long parentId;
-
-    @Column(nullable = false)
     @Builder.Default
-    private boolean enabled = true;
+    private CourseStatus status = CourseStatus.ACTIVE;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
