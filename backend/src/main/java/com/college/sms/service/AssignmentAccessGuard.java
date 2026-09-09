@@ -52,6 +52,22 @@ public class AssignmentAccessGuard {
         return facultyId;
     }
 
+    /** Role of the current principal (SUPER_ADMIN | ADMIN | FACULTY | STUDENT | PARENT). */
+    public String currentRole() {
+        return principal().getRole();
+    }
+
+    /** The students-row id of the logged-in parent's linked child. */
+    public Long currentParentStudentId() {
+        Long parentId = principal().getParentId();
+        if (parentId == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Parent account is not linked to a student");
+        }
+        Parent parent = parentRepository.findById(parentId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Parent record not found"));
+        return parent.getStudent().getId();
+    }
+
     /** Role-aware access to one student's data. */
     public void guardStudentAccess(Long studentId) {
         String role = principal().getRole();

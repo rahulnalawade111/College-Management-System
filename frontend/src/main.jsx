@@ -18,6 +18,14 @@ import FacultyAssignmentsPage from './pages/faculty/FacultyAssignmentsPage'
 import StudentAssignmentsPage from './pages/student/StudentAssignmentsPage'
 import ExamsAdminPage from './pages/admin/ExamsAdminPage'
 import StudentExamsPage from './pages/student/StudentExamsPage'
+import FacultyResultsPage from './pages/faculty/FacultyResultsPage'
+import StudentResultsPage from './pages/student/StudentResultsPage'
+import ParentResultsPage from './pages/shared/ParentResultsPage'
+import FeesAdminPage from './pages/admin/FeesAdminPage'
+import FeeViewPage from './pages/shared/FeeViewPage'
+import feeService from './services/feeService'
+const feeServiceMine = () => feeService.mine()
+const feeServiceMyChild = () => feeService.myChild()
 import DepartmentsPage from './pages/admin/DepartmentsPage'
 import AcademicYearsPage from './pages/admin/AcademicYearsPage'
 import CoursesPage from './pages/admin/CoursesPage'
@@ -39,6 +47,7 @@ const ADMIN_NAV = [
   { to: '/admin/subjects', label: 'Subjects', icon: '📖' },
   { to: '/admin/academic-years', label: 'Academic Years', icon: '📅' },
   { to: '/admin/exams', label: 'Exams', icon: '📝' },
+  { to: '/admin/fees', label: 'Fees', icon: '💳' },
   { to: '/admin/settings', label: 'Settings', icon: '⚙️' },
 ]
 const FACULTY_NAV = [
@@ -102,15 +111,15 @@ createRoot(document.getElementById('root')).render(
               <Route path="attendance" element={<AttendanceViewPage />} />
               <Route path="assignments" element={<StudentAssignmentsPage />} />
               <Route path="exams" element={<StudentExamsPage />} />
-            <Route path="results" element={<DashboardStub area="student results" />} />
-            <Route path="fees" element={<DashboardStub area="student fees" />} />
+            <Route path="results" element={<StudentResultsPage />} />
+            <Route path="fees" element={<FeeViewPage title="My Fees" dataLoader={() => feeServiceMine()} />} />
           </Route>
 
             <Route path="/parent" element={<ProtectedRoute roles={['PARENT']}><DashboardLayout nav={PARENT_NAV} /></ProtectedRoute>}>
               <Route path="dashboard" element={<ParentDashboardPage />} />
               <Route path="attendance" element={<ParentAttendancePage />} />
-            <Route path="results" element={<DashboardStub area="parent results" />} />
-            <Route path="fees" element={<DashboardStub area="parent fees" />} />
+            <Route path="results" element={<ParentResultsPage />} />
+            <Route path="fees" element={<FeeViewPage title="Child's Fees" dataLoader={() => feeServiceMyChild()} />} />
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace />} />
