@@ -14,6 +14,8 @@ import AdminDashboardPage from './pages/dashboards/AdminDashboardPage'
 import FacultyDashboardPage from './pages/dashboards/FacultyDashboardPage'
 import StudentDashboardPage from './pages/dashboards/StudentDashboardPage'
 import ParentDashboardPage from './pages/dashboards/ParentDashboardPage'
+import FacultyAssignmentsPage from './pages/faculty/FacultyAssignmentsPage'
+import StudentAssignmentsPage from './pages/student/StudentAssignmentsPage'
 import DepartmentsPage from './pages/admin/DepartmentsPage'
 import AcademicYearsPage from './pages/admin/AcademicYearsPage'
 import CoursesPage from './pages/admin/CoursesPage'
@@ -40,12 +42,14 @@ const FACULTY_NAV = [
   { to: '/faculty/dashboard', label: 'Dashboard', icon: '📊' },
   { to: '/faculty/students', label: 'Students', icon: '🎓' },
   { to: '/faculty/attendance', label: 'Attendance', icon: '🗓️' },
+  { to: '/faculty/assignments', label: 'Assignments', icon: '📝' },
   { to: '/faculty/results', label: 'Results', icon: '🏆' },
 ]
 const STUDENT_NAV = [
   { to: '/student/dashboard', label: 'Dashboard', icon: '📊' },
   { to: '/student/profile', label: 'Profile', icon: '👤' },
   { to: '/student/attendance', label: 'Attendance', icon: '🗓️' },
+  { to: '/student/assignments', label: 'Assignments', icon: '📝' },
   { to: '/student/results', label: 'Results', icon: '🏆' },
   { to: '/student/fees', label: 'Fees', icon: '💳' },
 ]
@@ -83,6 +87,7 @@ createRoot(document.getElementById('root')).render(
               <Route path="dashboard" element={<FacultyDashboardPage />} />
               <Route path="students" element={<DashboardStub area="faculty students" />} />
               <Route path="attendance" element={<MarkAttendancePage />} />
+              <Route path="assignments" element={<FacultyAssignmentsPage />} />
               <Route path="results" element={<DashboardStub area="faculty results" />} />
             </Route>
 
@@ -90,6 +95,7 @@ createRoot(document.getElementById('root')).render(
               <Route path="dashboard" element={<StudentDashboardPage />} />
               <Route path="profile" element={<DashboardStub area="student profile" />} />
               <Route path="attendance" element={<AttendanceViewPage />} />
+              <Route path="assignments" element={<StudentAssignmentsPage />} />
             <Route path="results" element={<DashboardStub area="student results" />} />
             <Route path="fees" element={<DashboardStub area="student fees" />} />
           </Route>
