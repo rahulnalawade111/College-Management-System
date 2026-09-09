@@ -10,6 +10,10 @@ import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
 import ResetPasswordPage from './pages/auth/ResetPasswordPage'
 import ForbiddenPage from './pages/ForbiddenPage'
 import DashboardStub from './pages/dashboards/DashboardStub'
+import AdminDashboardPage from './pages/dashboards/AdminDashboardPage'
+import FacultyDashboardPage from './pages/dashboards/FacultyDashboardPage'
+import StudentDashboardPage from './pages/dashboards/StudentDashboardPage'
+import ParentDashboardPage from './pages/dashboards/ParentDashboardPage'
 import DepartmentsPage from './pages/admin/DepartmentsPage'
 import AcademicYearsPage from './pages/admin/AcademicYearsPage'
 import CoursesPage from './pages/admin/CoursesPage'
@@ -65,7 +69,7 @@ createRoot(document.getElementById('root')).render(
           <Route path="/forbidden" element={<ForbiddenPage />} />
 
           <Route path="/admin" element={<ProtectedRoute roles={['SUPER_ADMIN', 'ADMIN']}><DashboardLayout nav={ADMIN_NAV} /></ProtectedRoute>}>
-              <Route path="dashboard" element={<DashboardStub area="admin" />} />
+              <Route path="dashboard" element={<AdminDashboardPage />} />
               <Route path="students" element={<StudentsPage />} />
               <Route path="faculty" element={<FacultyPage />} />
             <Route path="departments" element={<DepartmentsPage />} />
@@ -76,14 +80,14 @@ createRoot(document.getElementById('root')).render(
           </Route>
 
             <Route path="/faculty" element={<ProtectedRoute roles={['FACULTY']}><DashboardLayout nav={FACULTY_NAV} /></ProtectedRoute>}>
-              <Route path="dashboard" element={<DashboardStub area="faculty" />} />
+              <Route path="dashboard" element={<FacultyDashboardPage />} />
               <Route path="students" element={<DashboardStub area="faculty students" />} />
               <Route path="attendance" element={<MarkAttendancePage />} />
               <Route path="results" element={<DashboardStub area="faculty results" />} />
             </Route>
 
           <Route path="/student" element={<ProtectedRoute roles={['STUDENT']}><DashboardLayout nav={STUDENT_NAV} /></ProtectedRoute>}>
-              <Route path="dashboard" element={<DashboardStub area="student" />} />
+              <Route path="dashboard" element={<StudentDashboardPage />} />
               <Route path="profile" element={<DashboardStub area="student profile" />} />
               <Route path="attendance" element={<AttendanceViewPage />} />
             <Route path="results" element={<DashboardStub area="student results" />} />
@@ -91,7 +95,7 @@ createRoot(document.getElementById('root')).render(
           </Route>
 
             <Route path="/parent" element={<ProtectedRoute roles={['PARENT']}><DashboardLayout nav={PARENT_NAV} /></ProtectedRoute>}>
-              <Route path="dashboard" element={<DashboardStub area="parent" />} />
+              <Route path="dashboard" element={<ParentDashboardPage />} />
               <Route path="attendance" element={<ParentAttendancePage />} />
             <Route path="results" element={<DashboardStub area="parent results" />} />
             <Route path="fees" element={<DashboardStub area="parent fees" />} />

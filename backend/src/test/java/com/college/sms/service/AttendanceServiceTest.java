@@ -144,7 +144,7 @@ class AttendanceServiceTest {
     @Test
     void overallSummaryHandlesNoData() {
         when(studentRepository.findById(7L)).thenReturn(Optional.of(student));
-        when(attendanceRepository.overallByStudentId(7L)).thenReturn(new Object[]{null, null});
+        when(attendanceRepository.overallByStudentId(7L)).thenReturn(java.util.List.<Object[]>of(new Object[]{null, null}));
 
         AttendanceResponse.OverallSummary summary = service.overallSummary(7L);
         assertThat(summary.percentage()).isEqualTo(0);

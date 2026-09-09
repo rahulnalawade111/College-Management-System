@@ -117,12 +117,13 @@ public class AttendanceService {
     @Transactional(readOnly = true)
     public AttendanceResponse.OverallSummary overallSummary(Long studentId) {
         getStudent(studentId);
-        Object[] r = attendanceRepository.overallByStudentId(studentId);
+        List<Object[]> rows = attendanceRepository.overallByStudentId(studentId);
+        Object[] r = rows.isEmpty() ? new Object[]{0L, 0L} : rows.get(0);
         if (r == null || r[0] == null) {
             return new AttendanceResponse.OverallSummary(0, 0, 0);
         }
-        long total = (Long) r[0];
-        long present = r[1] == null ? 0 : (Long) r[1];
+        long total = ((Number) r[0]).longValue();
+        long present = r[1] == null ? 0 : ((Number) r[1]).longValue();
         double pct = total == 0 ? 0 : round2(present * 100.0 / total);
         return new AttendanceResponse.OverallSummary(total, present, pct);
     }

@@ -14,8 +14,13 @@ public interface ParentRepository extends JpaRepository<Parent, Long> {
 
     List<Parent> findByStudentId(Long studentId);
 
+    @Query("select p from Parent p left join fetch p.student where p.id = :id")
+    Optional<Parent> findByIdWithStudent(@Param("id") Long id);
+
     void deleteByStudentId(Long studentId);
 
-    @Query("select p from Parent p join fetch p.student where p.id = :id")
-    Optional<Parent> findByIdWithStudent(@Param("id") Long id);
+    /** Login-linked parents: users.parent_id points at the parents row. */
+    @Query("select p from Parent p left join fetch p.student " +
+            "where p.id = (select u.parentId from User u where u.id = :userId) order by p.id")
+    List<Parent> findByUserIdWithStudent(@Param("userId") Long userId);
 }
