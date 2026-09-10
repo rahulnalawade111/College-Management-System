@@ -55,4 +55,11 @@ public class AuthController {
     public ResponseEntity<AuthResponse> me(@AuthenticationPrincipal UserPrincipal principal) {
         return ResponseEntity.ok(authService.me(principal));
     }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<MessageResponse> changePassword(
+            @AuthenticationPrincipal UserPrincipal principal,
+            @Valid @RequestBody com.college.sms.dto.ChangePasswordRequest request) {
+        return ResponseEntity.ok(authService.changePassword(principal.getUsername(), request));
+    }
 }

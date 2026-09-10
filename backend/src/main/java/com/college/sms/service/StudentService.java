@@ -279,6 +279,12 @@ public class StudentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Academic year not found with id " + id));
     }
 
+    /** Public mapper used by self-service endpoints (e.g. GET /api/students/me). */
+    @Transactional(readOnly = true)
+    public StudentResponse toResponseDto(Student s) {
+        return toResponse(s);
+    }
+
     private StudentResponse toResponse(Student s) {
         List<GuardianResponse> guardians = parentRepository.findByStudentId(s.getId()).stream()
                 .map(p -> new GuardianResponse(p.getId(), p.getName(), p.getRelation(), p.getEmail(),

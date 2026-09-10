@@ -117,6 +117,18 @@ public class AuthService {
         return toAuthResponse(token, user);
     }
 
+    @Transactional
+    public MessageResponse changePassword(String username, com.college.sms.dto.ChangePasswordRequest request) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        if (!passwordEncoder.matches(request.currentPassword(), user.getPassword())) {
+            throw new BadRequestException("Current password is incorrect");
+        }
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
+        userRepository.save(user);
+        return MessageResponse.of("Password changed successfully");
+    }
+
     private AuthResponse toAuthResponse(String token, User user) {
         return new AuthResponse(token, "Bearer", jwtService.getExpirationMs(),
                 new AuthResponse.UserDTO(user.getId(), user.getUsername(), user.getEmail(),

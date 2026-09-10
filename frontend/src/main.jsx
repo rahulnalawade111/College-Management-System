@@ -34,6 +34,9 @@ import StudentResultsPage from './pages/student/StudentResultsPage'
 import ParentResultsPage from './pages/shared/ParentResultsPage'
 import FeesAdminPage from './pages/admin/FeesAdminPage'
 import WebsiteContentPage from './pages/admin/WebsiteContentPage'
+import AdminSettingsPage from './pages/admin/AdminSettingsPage'
+import FacultyStudentsPage from './pages/faculty/FacultyStudentsPage'
+import StudentProfilePage from './pages/student/StudentProfilePage'
 import FeeViewPage from './pages/shared/FeeViewPage'
 import feeService from './services/feeService'
 const feeServiceMine = () => feeService.mine()
@@ -120,20 +123,20 @@ createRoot(document.getElementById('root')).render(
             <Route path="academic-years" element={<AcademicYearsPage />} />
             <Route path="exams" element={<ExamsAdminPage />} />
             <Route path="website" element={<WebsiteContentPage />} />
-            <Route path="settings" element={<DashboardStub area="admin settings" />} />
+            <Route path="settings" element={<AdminSettingsPage />} />
           </Route>
 
             <Route path="/faculty" element={<ProtectedRoute roles={['FACULTY']}><DashboardLayout nav={FACULTY_NAV} /></ProtectedRoute>}>
               <Route path="dashboard" element={<FacultyDashboardPage />} />
-              <Route path="students" element={<DashboardStub area="faculty students" />} />
+              <Route path="students" element={<FacultyStudentsPage />} />
               <Route path="attendance" element={<MarkAttendancePage />} />
               <Route path="assignments" element={<FacultyAssignmentsPage />} />
-              <Route path="results" element={<DashboardStub area="faculty results" />} />
+              <Route path="results" element={<FacultyResultsPage />} />
             </Route>
 
           <Route path="/student" element={<ProtectedRoute roles={['STUDENT']}><DashboardLayout nav={STUDENT_NAV} /></ProtectedRoute>}>
               <Route path="dashboard" element={<StudentDashboardPage />} />
-              <Route path="profile" element={<DashboardStub area="student profile" />} />
+              <Route path="profile" element={<StudentProfilePage />} />
               <Route path="attendance" element={<AttendanceViewPage />} />
               <Route path="assignments" element={<StudentAssignmentsPage />} />
               <Route path="exams" element={<StudentExamsPage />} />
