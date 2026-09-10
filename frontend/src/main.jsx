@@ -5,6 +5,17 @@ import { AuthProvider } from './context/AuthContext'
 import ProtectedRoute from './routes/ProtectedRoute'
 import DashboardLayout from './layouts/DashboardLayout'
 import HomePage from './pages/public/HomePage'
+import AboutPage from './pages/public/AboutPage'
+import AcademicsPage from './pages/public/AcademicsPage'
+import PublicDepartmentsPage from './pages/public/PublicDepartmentsPage'
+import PublicCoursesPage from './pages/public/CoursesPage'
+import AdmissionsPage from './pages/public/AdmissionsPage'
+import PublicFacultyPage from './pages/public/PublicFacultyPage'
+import EventsPage from './pages/public/EventsPage'
+import NoticesPage from './pages/public/NoticesPage'
+import GalleryPage from './pages/public/GalleryPage'
+import ContactPage from './pages/public/ContactPage'
+import PublicLayout from './layouts/PublicLayout'
 import LoginPage from './pages/auth/LoginPage'
 import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
 import ResetPasswordPage from './pages/auth/ResetPasswordPage'
@@ -22,6 +33,7 @@ import FacultyResultsPage from './pages/faculty/FacultyResultsPage'
 import StudentResultsPage from './pages/student/StudentResultsPage'
 import ParentResultsPage from './pages/shared/ParentResultsPage'
 import FeesAdminPage from './pages/admin/FeesAdminPage'
+import WebsiteContentPage from './pages/admin/WebsiteContentPage'
 import FeeViewPage from './pages/shared/FeeViewPage'
 import feeService from './services/feeService'
 const feeServiceMine = () => feeService.mine()
@@ -48,6 +60,7 @@ const ADMIN_NAV = [
   { to: '/admin/academic-years', label: 'Academic Years', icon: '📅' },
   { to: '/admin/exams', label: 'Exams', icon: '📝' },
   { to: '/admin/fees', label: 'Fees', icon: '💳' },
+  { to: '/admin/website', label: 'Website', icon: '🌐' },
   { to: '/admin/settings', label: 'Settings', icon: '⚙️' },
 ]
 const FACULTY_NAV = [
@@ -79,7 +92,19 @@ createRoot(document.getElementById('root')).render(
       <ToastProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/academics" element={<AcademicsPage />} />
+            <Route path="/departments" element={<PublicDepartmentsPage />} />
+            <Route path="/courses" element={<PublicCoursesPage />} />
+            <Route path="/admissions" element={<AdmissionsPage />} />
+            <Route path="/faculty" element={<PublicFacultyPage />} />
+            <Route path="/events" element={<EventsPage />} />
+            <Route path="/notices" element={<NoticesPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Route>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/reset-password" element={<ResetPasswordPage />} />
@@ -94,6 +119,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="subjects" element={<SubjectsPage />} />
             <Route path="academic-years" element={<AcademicYearsPage />} />
             <Route path="exams" element={<ExamsAdminPage />} />
+            <Route path="website" element={<WebsiteContentPage />} />
             <Route path="settings" element={<DashboardStub area="admin settings" />} />
           </Route>
 

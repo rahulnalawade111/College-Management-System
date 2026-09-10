@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /student/
+Disallow: /faculty/
+Disallow: /parent/
+
+Sitemap: /sitemap.xml
