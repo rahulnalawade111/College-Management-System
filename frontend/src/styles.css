@@ -554,3 +554,13 @@ code { background: #EEF2FF; padding: 2px 6px; border-radius: 6px; }
 }
 .modal-close:hover { background: #FEF2F2; }
 .modal-close:focus-visible { outline: 2px solid var(--secondary); }
+
+/* ---------- Modal robustness: always above sidebar/topbar, readable on small screens ---------- */
+.modal-backdrop { z-index: 1000; }
+.modal { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.modal-head { z-index: 2; }
+.modal-actions { position: sticky; bottom: 0; background: var(--white); padding-top: .8rem; margin-top: 1rem; border-top: 1px solid var(--border); }
+@media (max-width: 560px) {
+  .modal { max-height: 94vh; border-radius: 12px; }
+  .modal-backdrop { padding: .6rem; }
+}

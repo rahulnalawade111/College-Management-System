@@ -173,7 +173,7 @@ export default function FacultyPage() {
           </>
         )}
 
-      <Modal open={modalOpen} onClose={() => setModalOpen(false)}
+      <Modal open={modalOpen} onClose={() => setModalOpen(false)} wide
         title={editing ? `Edit ${editing.fullName}` : 'Add Faculty'}>
         <form onSubmit={save}>
           {formError && <div className="form-error">{formError}</div>}
